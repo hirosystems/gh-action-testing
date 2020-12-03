@@ -60,11 +60,13 @@ jobs:
                 * Time created: `${{ env.CHAINSTATE_TIME_CREATED }}`
                 * File size: `${{ env.CHAINSTATE_SIZE }} bytes`
                 * MD5 Hash: `${{ env.CHAINSTATE_MD5 }}`
+                    * [Verify the MD5 hash with this script](https://gist.github.com/wileyj/93b4222576cb702053ebfcd3cf9f570b)
                 * [Download file](${{ env.CHAINSTATE_DOWNLOAD_LINK }})
             * [chainstate.txt.sha256](https://storage.googleapis.com/blockstack-v1-migration-data/chainstate.txt.sha256)
                 * Time created: `${{ env.CHAINSTATE_HASH_TIME_CREATED }}`
                 * File size: `${{ env.CHAINSTATE_HASH_SIZE }} bytes`
                 * MD5 Hash: `${{ env.CHAINSTATE_HASH_MD5 }}`
+                    * [Verify the MD5 hash with this script](https://gist.github.com/wileyj/93b4222576cb702053ebfcd3cf9f570b)
                 * [Download file](${{ env.CHAINSTATE_HASH_DOWNLOAD_LINK }})
 
             Once merged, a new tag will need to be created. This can be done one of two ways:
