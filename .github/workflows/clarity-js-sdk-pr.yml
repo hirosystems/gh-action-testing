@@ -33,18 +33,18 @@ jobs:
       - name: Update SDK Tag
         run: sed -i "s@CORE_SDK_TAG = \".*\"@CORE_SDK_TAG = \"$RELEASE_VERSION\"@g" packages/clarity-native-bin/src/index.ts
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          commit-message: Update clarity-native-bin tag
-          committer: ${{ env.COMMIT_USER }} <${{ env.COMMIT_EMAIL }}>
-          author: ${{ env.COMMIT_USER }} <${{ env.COMMIT_EMAIL }}>
-          branch: ${{ env.UPDATE_BRANCH }}
-          title: "clarity-native-bin tag update: ${{ env.RELEASE_VERSION }}"
-          body: |
-            :robot: This is an automated pull request created from a new release in [stacks-blockchain](https://github.com/blockstack/stacks-blockchain/releases).
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v3
+      #   with:
+      #     token: ${{ secrets.GH_TOKEN }}
+      #     commit-message: Update clarity-native-bin tag
+      #     committer: ${{ env.COMMIT_USER }} <${{ env.COMMIT_EMAIL }}>
+      #     author: ${{ env.COMMIT_USER }} <${{ env.COMMIT_EMAIL }}>
+      #     branch: ${{ env.UPDATE_BRANCH }}
+      #     title: "clarity-native-bin tag update: ${{ env.RELEASE_VERSION }}"
+      #     body: |
+      #       :robot: This is an automated pull request created from a new release in [stacks-blockchain](https://github.com/blockstack/stacks-blockchain/releases).
 
-            Updates the clarity-native-bin tag.
-          assignees: zone117x,hstove
-          reviewers: zone117x,hstove
+      #       Updates the clarity-native-bin tag.
+      #     assignees: zone117x,hstove
+      #     reviewers: zone117x,hstove
