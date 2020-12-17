@@ -35,12 +35,22 @@ jobs:
           status: STARTING
           color: warning
 
-  # Run tests
-  test:
+  # Run neon tests
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run bitcoin tests
+      - name: Run units tests (with coverage)
+        env:
+          DOCKER_BUILDKIT: 1
+        run: docker build -f ./.github/actions/bitcoin-int-tests/Dockerfile.code-cov .
+
+  # Run neon tests
+  neon-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run neon integration (bitcoin) tests
         env:
           DOCKER_BUILDKIT: 1
         run: docker build -f ./.github/actions/bitcoin-int-tests/Dockerfile.bitcoin-tests .
