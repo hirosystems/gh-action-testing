@@ -43,6 +43,9 @@ jobs:
       - name: Run units tests (with coverage)
         env:
           DOCKER_BUILDKIT: 1
+          CARGO_INCREMENTAL: 0
+          RUSTFLAGS: "-Zprofile -Copt-level=0 -Cinline-threshold=0 -Clink-dead-code -Coverflow-checks=off -Zpanic_abort_tests -Cpanic=abort"
+          RUSTDOCFLAGS: "-Cpanic=abort"
         run: docker build -f ./.github/actions/bitcoin-int-tests/Dockerfile.code-cov .
 
   # Run neon tests
@@ -53,9 +56,6 @@ jobs:
       - name: Run neon integration (bitcoin) tests
         env:
           DOCKER_BUILDKIT: 1
-          CARGO_INCREMENTAL: 0
-          RUSTFLAGS: "-Zprofile -Copt-level=0 -Cinline-threshold=0 -Clink-dead-code -Coverflow-checks=off -Zpanic_abort_tests -Cpanic=abort"
-          RUSTDOCFLAGS: "-Cpanic=abort"
         run: docker build -f ./.github/actions/bitcoin-int-tests/Dockerfile.bitcoin-tests .
   
   # Run net-tests
