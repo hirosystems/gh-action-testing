@@ -24,6 +24,10 @@ on:
   repository_dispatch:
     types:
       - migration
+    inputs:
+      block_height:
+        description: 'The V1 Block height at which this is being triggered'
+        required: true
 
 jobs:      
   run:
