@@ -223,6 +223,7 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
     needs:
       - dist
+      - dist-macos
       - build-publish
       - build-publish-stretch
 
@@ -274,6 +275,7 @@ jobs:
     needs:
       - notify-start
       - dist
+      - dist-macos
       - build-publish
       - build-publish-stretch
       - create-release
