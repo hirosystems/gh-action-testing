@@ -128,7 +128,7 @@ jobs:
           path: dist/
 
       - name: Unzip artifact
-        run: unzip dist/${{ env.PLATFORM }} && ls -la dist/${{ env.PLATFORM }}
+        run: unzip dist/${{ env.PLATFORM }}.zip && ls -la dist/${{ env.PLATFORM }}
 
       - name: Code-sign & notarize
         env:
