@@ -1,0 +1,19 @@
+{
+    "source" : [
+        "dist/macos-x64/stacks-node",
+        "dist/macos-x64/clarity-cli",
+        "dist/macos-x64/blockstack-core",
+        "dist/macos-x64/blockstack-cli"
+        ],
+    "bundle_id" : "co.stacks.stacks-dist",
+    "apple_id": {
+        "username" : "@env:AC_USERNAME",
+        "password":  "@env:AC_PASSWORD"
+    },
+    "sign" :{
+        "application_identity" : "Developer ID Application: Blockstack PBC"
+    },
+    "zip" :{
+        "output_path" : "macos-x64.zip"
+    }
+}
