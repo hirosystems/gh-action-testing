@@ -99,6 +99,8 @@ jobs:
 
   macos-sign:
     runs-on: macos-latest
+    needs:
+      - dist
     env:
       PLATFORM: macos-x64
     steps:
