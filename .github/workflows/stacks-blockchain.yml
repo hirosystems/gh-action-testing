@@ -119,9 +119,6 @@ jobs:
           brew tap mitchellh/gon
           brew install mitchellh/gon/gon
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
       - name: Build distributable
         uses: docker/build-push-action@v2.2.1
         with:
