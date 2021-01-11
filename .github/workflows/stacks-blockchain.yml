@@ -97,6 +97,32 @@ jobs:
           name: ${{ matrix.platform }}
           path: ${{ matrix.platform }}.zip
 
+  sign-macos:
+    needs:
+      - dist
+    runs-on: macos-latest
+    env:
+      PLATFORM: macos-x64
+      NPM_COMMAND: mac
+      CSC_LINK_SECRET_NAME: CODE_SIGNING_CERTIFICATE_APPLE
+      CSC_KEY_PASSWORD_SECRET_NAME: CODE_SIGNING_PASSWORD_APPLE
+    steps:
+      - name: Install code-signing certs - Apple only
+        uses: apple-actions/import-codesign-certs@v1
+        with:
+          p12-file-base64: ${{ secrets.CODE_SIGNING_CERTIFICATE_APPLE }}
+          p12-password: ${{ secrets.CODE_SIGNING_PASSWORD_APPLE }}
+
+      - name: Download distro
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.PLATFORM }}
+          path: dist/
+
+    - name: Code sign
+      run:
+
+
   # Build docker image, tag it with the git tag and `latest` if running on master branch, and publish under the following conditions
   # Will publish if:
   #   - a tag was passed into this workflow
