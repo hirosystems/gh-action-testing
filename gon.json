@@ -7,7 +7,7 @@
         ],
     "bundle_id" : "co.stacks.stacks-dist",
     "apple_id": {
-        "username" : "@env:AC_USERNAME",
+        "username" : "devops@blockstack.com",
         "password":  "@env:AC_PASSWORD"
     },
     "sign" :{
