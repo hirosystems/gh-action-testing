@@ -97,6 +97,38 @@ jobs:
           name: ${{ matrix.platform }}
           path: ${{ matrix.platform }}.zip
 
+  windows-sign:
+    runs-on: windows-latest
+    needs:
+      - dist
+    env:
+      PLATFORM: windows-x64
+    steps:
+      - name: Download distro
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.PLATFORM }}
+          path: dist/
+
+      - name: Unzip artifact
+        run: unzip dist/${{ env.PLATFORM }}.zip -d dist/${{ env.PLATFORM }}
+
+      - uses: DanaBear/code-sign-action@v1
+        with:
+          certificate: ${{ secrets.WINDOWS_CODE_SIGNING_CERTIFICATE }}
+          password: ${{ secrets.WINDOWS_CODE_SIGNING_PASSWORD }}
+          certificatename: ${{ secrets.WINDOWS_CODE_SIGNING_CERT_NAME }}
+          folder: dist/${{ env.PLATFORM }}
+
+      - name: Compress artifact
+        run: zip --junk-paths ${{ matrix.platform }} ./dist/${{ matrix.platform }}/*
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.platform }}
+          path: ${{ matrix.platform }}.zip
+
   macos-sign:
     runs-on: macos-latest
     needs:
@@ -104,12 +136,6 @@ jobs:
     env:
       PLATFORM: macos-x64
     steps:
-      - uses: actions/checkout@v2
-      - name: Set Vars
-        run: |
-          echo "GITHUB_SHA_SHORT=${GITHUB_SHA::7}" >> $GITHUB_ENV
-          echo "GITHUB_REF_SHORT=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
       - name: Install code-signing certs
         uses: apple-actions/import-codesign-certs@v1
         with:
@@ -128,12 +154,12 @@ jobs:
           path: dist/
 
       - name: Unzip artifact
-        run: unzip dist/${{ env.PLATFORM }}.zip -d dist/${{ env.PLATFORM }} && ls -la dist/${{ env.PLATFORM }}
+        run: unzip dist/${{ env.PLATFORM }}.zip -d dist/${{ env.PLATFORM }}
 
       - name: Code-sign & notarize
         env:
           AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
-        run: gon -log-level info gon.json
+        run: gon gon.json
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
