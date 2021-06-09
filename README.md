@@ -280,13 +280,13 @@ properly formatted.
 You can check the formatting locally via:
 
 ```bash
-$ cargo fmt --all -- --check
+cargo fmt --all -- --check
 ```
 
 You can automatically reformat your commit via:
 
 ```bash
-$ cargo fmt --all
+cargo fmt --all
 ```
 
 ## Copyright and License
